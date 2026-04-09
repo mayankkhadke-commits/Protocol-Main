@@ -1502,7 +1502,7 @@ function jOpenFullscreen(id){
     .join('');
 
   // hide top nav only when there is at least one image
-  const nav = document.querySelector('.top-nav'); // change this selector if your nav is different
+  const nav = document.querySelector('.top-nav'); // your nav uses .top-nav in CSS
   if (nav) {
     if (e.images && e.images.length > 0) {
       nav.dataset.prevDisplay = nav.style.display || '';
@@ -1518,6 +1518,14 @@ function jOpenFullscreen(id){
 
 function jCloseFullscreen(){
   document.getElementById('j-fullscreen-bg').classList.remove('open');
+
+  // restore top nav if we hid it
+  const nav = document.querySelector('.top-nav'); // same selector
+  if (nav && nav.dataset.prevDisplay !== undefined) {
+    nav.style.display = nav.dataset.prevDisplay;
+    delete nav.dataset.prevDisplay;
+  }
+}
 
   // restore top nav if we hid it
   const nav = document.querySelector('.top-nav'); // same selector as above
